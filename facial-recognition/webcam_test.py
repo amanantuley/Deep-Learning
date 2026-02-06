@@ -6,7 +6,7 @@ import torch.nn as nn
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-classes = ['aman','others']
+classes = ['aman','azlan']
 
 model = models.mobilenet_v2(pretrained=False)
 model.classifier[1] = nn.Linear(model.last_channel, 2)
