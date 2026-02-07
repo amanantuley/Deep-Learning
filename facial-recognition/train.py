@@ -6,7 +6,7 @@ from torchvision import datasets, transforms, models
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 ################################
-# NORMALIZATION (VERY IMPORTANT)
+# NORMALIZATION
 ################################
 normalize = transforms.Normalize(
     mean=[0.485,0.456,0.406],
@@ -31,7 +31,6 @@ test_transform = transforms.Compose([
 ################################
 # DATA
 ################################
-
 train_data = datasets.ImageFolder("data/train", transform=train_transform)
 test_data  = datasets.ImageFolder("data/test",  transform=test_transform)
 
@@ -42,12 +41,12 @@ classes = train_data.classes
 print("Classes:", classes)
 
 ################################
-# MODEL
+# MODEL (NEW WEIGHTS API)
 ################################
+model = models.mobilenet_v2(
+    weights=models.MobileNet_V2_Weights.DEFAULT
+)
 
-model = models.mobilenet_v2(pretrained=True)
-
-# freeze backbone
 for p in model.features.parameters():
     p.requires_grad = False
 
@@ -58,11 +57,10 @@ criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
 ################################
-# TRAINING + ACCURACY
+# TRAIN + ACCURACY
 ################################
-
-EPOCHS = 10
 best_acc = 0
+EPOCHS = 10
 
 for epoch in range(EPOCHS):
 

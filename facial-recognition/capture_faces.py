@@ -1,7 +1,7 @@
 import cv2
 import os
 
-name = "others"
+name = "sumaiya"
 
 save_path = os.path.join(os.getcwd(), "data", "train", name)
 os.makedirs(save_path, exist_ok=True)

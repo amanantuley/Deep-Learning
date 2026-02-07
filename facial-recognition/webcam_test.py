@@ -28,11 +28,13 @@ transform = transforms.Compose([
 ])
 
 ################################
-# LOAD MODEL
+# LOAD MODEL (same architecture!)
 ################################
-model = models.mobilenet_v2(pretrained=False)
+model = models.mobilenet_v2(weights=None)
+
 model.classifier[1] = nn.Linear(model.last_channel, len(classes))
-model.load_state_dict(torch.load("face_model.pth"))
+
+model.load_state_dict(torch.load("face_model.pth", map_location=device))
 
 model.eval()
 model.to(device)

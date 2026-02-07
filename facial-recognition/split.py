@@ -1,6 +1,6 @@
 import os, shutil, random
 
-for person in ["aman","azlan"]:
+for person in ["aman","azlan" , "sumaiya", "others"]:
 
     src = f"data/train/{person}"
     dst = f"data/test/{person}"
